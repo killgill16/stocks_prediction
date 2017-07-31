@@ -1,0 +1,78 @@
+{% load staticfiles%}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{stock_name}}</title>
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css" rel="stylesheet">
+</head>
+
+<style type="text/css">
+
+h4{
+	color:#660033;
+}
+#latest{
+	
+	display:inline-block;
+	margin-left: -92%;
+	top: 200px;
+	position: absolute;
+}
+#plot{
+	display:inline-block;
+	margin-left: 15%;
+}
+#list-group{
+	margin-left: 5%;
+	margin-right: 5%;
+}
+#predict{
+	color: blue;
+}
+h2{
+	color: #2BBBAD;
+}
+</style>
+
+<body>
+	<div class="example hoverable">
+	<a href="/"> <h2 class="h2-responsive"><center>{{stock_name}}</center></h2></a>
+	</div>
+
+<div id="plot">
+	{{plot|safe}}
+</div>
+
+<div id="latest" class="example hoverable">
+	<ul class="list-group">
+		<li class="list-group-item">Open : <b>{{latest_data_dic.Open}}</b></li>
+		<li class="list-group-item">Close : <b>{{latest_data_dic.Close}}</b></li>
+		<li class="list-group-item">Volume : <b>{{latest_data_dic.Volume}}</b></li>
+		<li class="list-group-item">Adj Close : <b>{{latest_data_dic.Adj_Close}}</b></li>
+		<li class="list-group-item">High : <b>{{latest_data_dic.High}}</b></li>
+		<li class="list-group-item">Low : <b>{{latest_data_dic.Low}}</b></li>
+		<li id="predict" class="list-group-item">Prediction : <b>{{predict_value}}</b></li>
+	</ul>
+</div>
+	
+<div class="list-group" id="list-group">
+{% for new in news %}
+  <a href="{{new.link}}" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><b>{{new.title}}</b></h5>
+      <small>{{new.date}}</small>
+    </div>
+    <p class="mb-1">{{new.desc}}</p>
+  </a>
+  {% endfor %}
+
+</div>
+
+
+
+
+
+</body>
+</html>
